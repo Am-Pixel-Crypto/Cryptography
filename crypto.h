@@ -3,7 +3,31 @@
 #ifndef _CRYPYTO_H_
 #define _CRYPYTO_H_
 
+#include <string.h>
+#include "LA.h"
 
+using namespace std;
+
+// encoded or decoded matrix
+struct CrypoMatrix {
+    int nrows;
+    int ncols;
+    double** m;
+};
+
+namespace Crypto {
+
+    // Legend:
+    //  A: The encoding matrix.
+    //  E: The encoded message, the output.
+    //  D: The Decoded message.
+    //  M: The message.
+
+    void Encode(const Matrix& A, const string M, CrypoMatrix& B);
+    void Decode(const Matrix& A, const CryptMatrix& B, CryptMatrix& D);
+};
+
+/*
 void encodeMessage() {
 
     string msg;
@@ -30,7 +54,7 @@ void encodeMessage() {
         }
     }
 
-    while (true){
+    while (true) {
         cout << "\nEnter the encoding matrix A (row by row):\n";
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < m; c++) {
@@ -62,10 +86,9 @@ void encodeMessage() {
         }
     }
 
-    /*
-    for (int k = 0; k < input.length(); k++) {
-        cout << num[k] << " ";
-    }*/
+    // for (int k = 0; k < input.length(); k++) {
+    //     cout << num[k] << " ";
+    // }
 
     int cols = L / m;
     if (L % m != 0) cols++; 
@@ -88,15 +111,14 @@ void encodeMessage() {
         }
     }
 
-    /*
-    cout << "\nMessage matrix (M):\n";
-    for (int r = 0; r < rows; r++) {
-        cout << "{ ";                   
-            for (int c = 0; c < cols; c++) {
-                cout << setw(3) << M[r][c] << " ";
-            }
-            cout << "}\n";  
-    }*/
+    // cout << "\nMessage matrix (M):\n";
+    // for (int r = 0; r < rows; r++) {
+    //     cout << "{ ";                   
+    //         for (int c = 0; c < cols; c++) {
+    //             cout << setw(3) << M[r][c] << " ";
+    //         }
+    //         cout << "}\n";  
+    // }
 
     cout << "\nEncoded matrix (B):\n";
     for (int r = 0; r < m; r++) {
@@ -211,7 +233,8 @@ void decodeMessage() {
     }
 
     cout << "\n";
-} 
+}
 
+*/
 
 #endif // _CRYPYTO_H_
