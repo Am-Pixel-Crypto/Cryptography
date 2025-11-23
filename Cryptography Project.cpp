@@ -24,7 +24,7 @@ bool isInvertible(int A[3][3], int m) {
             A[0][2] * (A[1][0] * A[2][1] - A[1][1] * A[2][0]);
     }
 
-    cout << "Determinant = " << det << endl;
+    // cout << "Determinant = " << det << endl;
     return (det != 0);
 }
 Matrix2 inverse2x2(int A[3][3]) {
@@ -193,7 +193,7 @@ void decodeMessage(){
             }
         }
         if (!isInvertible(A, m)) {
-            cout << "❌ ERROR: This matrix is NOT invertible!"
+            cout << "ERROR: This matrix is NOT invertible!"
             << "\nUse a different encoding matrix.\n";
         }
         else
