@@ -10,10 +10,10 @@ FLAGS :=
 LIBS  := 
 
 all: $(UNITS)
-	$(GXX) -o $(BIN) main.cpp $^ $(FLAGS) $(LIBS)
+	$(CXX) -o $(BIN) main.cpp $^ $(FLAGS) $(LIBS)
 
 %.o: %.c
-	$(GXX) -c -o $@ $< $^ $(FLAGS)
+	$(CXX) -c -o $@ $< $^ $(FLAGS)
 
 clean:
 	$(RM) $(UNITS) $(BIN)
