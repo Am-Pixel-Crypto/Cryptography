@@ -38,7 +38,7 @@ void CryptoSystem::createOrLoadMatrix() {
         else if (option == 2) {
             int count = savedMatrix();
             if (count == 0) {
-                cout << "\n⚠ No saved matrices! Please create one.\n";
+                cout << "\nNo saved matrices! Please create one.\n";
                 continue;
             }
             while (true) {
