@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void printMatrix(double M[3][50], int rows, int cols, string title) {
+void printMatrix(int M[3][50], int rows, int cols, string title) {
     cout << "\n" << title << ":\n";
     for (int r = 0; r < rows; r++) {
         cout << "{ ";
@@ -14,7 +14,7 @@ void printMatrix(double M[3][50], int rows, int cols, string title) {
         cout << "}\n";
     }
 }
-void msgOut(double M[3][50], int rows, int cols){
+void msgOut(int M[3][50], int rows, int cols){
     cout << "\nDecoded message: ";
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {

@@ -10,7 +10,8 @@ int main() {
         cout << "==== Matrix Encoder/Decoder ====\n"
              << "1. Encode message\n"
              << "2. Decode message\n"
-             << "3. Exit\n"
+             << "3. Show History\n"
+             << "4. Exit\n"
              << "Choose: ";
         cin >> option;
         cin.ignore();

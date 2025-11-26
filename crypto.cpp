@@ -9,41 +9,63 @@ CryptoSystem::CryptoSystem() {
     size = 0;
 }
 void CryptoSystem::createOrLoadMatrix() {
-    int option;
-    cout << "\n1.Create a matrix\n2.Use old matrix\nEnter an option: ";
-    cin >> option;
+    while (true) {
+        int option;
+        cout << "\n1. Create a matrix\n2. Use old matrix\nEnter an option: ";
+        cin >> option;
+        if (option == 1) {
+            while (true) {
+                cout << "\n1. 2x2\n2. 3x3\nEnter size: ";
+                cin >> size;
+                if (size == 1 || size == 2) { size++; break; }
+                cout << "Invalid choice.\n";
+            }
+            while (true) {
+                cout << "\nEnter matrix row by row:\n";
+                for (int r = 0; r < size; r++)
+                    for (int c = 0; c < size; c++)
+                        cin >> A[r][c];
 
-    if (option == 1) {
-        while (true) {
-            cout << "\n1. 2x2\n2. 3x3\nEnter size: ";
-            cin >> size;
-            if (size == 1 || size == 2) { size++; break; }
-            cout << "Invalid choice.\n";
+                if (!isInvertible(A, size))
+                    cout << "ERROR: Matrix NOT invertible! Try again.\n";
+                else {
+                    saveEncodingMatrix(A, size);
+                    cin.ignore();
+                    return;
+                }
+            }
         }
+        else if (option == 2) {
+            int count = savedMatrix();
+            if (count == 0) {
+                cout << "\n⚠ No saved matrices! Please create one.\n";
+                continue;
+            }
+            while (true) {
+                int choice;
+                cout << "Choose matrix number (1-" << count << "): ";
+                cin >> choice;
 
-        while (true) {
-            cout << "\nEnter matrix row by row:\n";
-            for (int r = 0; r < size; r++)
-                for (int c = 0; c < size; c++)
-                    cin >> A[r][c];
-
-            if (!isInvertible(A, size))
-                cout << "ERROR: Matrix is NOT invertible!\n";
-            else
-                break;
+                if (!loadMatrix(choice, A, size))
+                    cout << "Invalid choice. Try again.\n";
+                else {
+                    cout << "\nLoaded Matrix (" << size << "x" << size << "):\n";
+                    for (int r = 0; r < size; r++) {
+                        cout << "{ ";
+                        for (int c = 0; c < size; c++)
+                            cout << A[r][c] << " ";
+                        cout << "}\n";
+                    }
+                    cin.ignore();
+                    return;
+                }
+            }
         }
-        saveEncodingMatrix(A, size);
+        else {
+            cout << "Invalid option. Try again.\n";
+        }
     }
-    else if (option == 2) {
-        savedMatrix();
-        int choice;
-        cout << "Choose matrix number: ";
-        cin >> choice;
-        loadMatrix(choice, A, size);
-    }
-    cin.ignore();
 }
-
 void CryptoSystem::encode() {
     createOrLoadMatrix();
 
@@ -55,7 +77,7 @@ void CryptoSystem::encode() {
     int num[L];
 
     for (int i = 0; i < L; i++) {
-        if      (msg[i] == ' ') num[i] = 0;
+             if (msg[i] == ' ') num[i] = 0;
         else if (msg[i] >= 'A' && msg[i] <= 'Z') num[i] = msg[i] - 'A' + 1;
         else if (msg[i] >= 'a' && msg[i] <= 'z') num[i] = msg[i] - 'a' + 27;
     }
@@ -67,7 +89,7 @@ void CryptoSystem::encode() {
         for (int c = 0; c < cols; c++)
             if (idx < L) M[r][c] = num[idx++];
 
-    double B[3][50] = {0};
+    int B[3][50] = {0};
     for (int r = 0; r < size; r++)
         for (int c = 0; c < cols; c++)
             for (int k = 0; k < size; k++)
@@ -85,13 +107,13 @@ void CryptoSystem::decode() {
     double inv[3][3];
     (size == 2) ? inverse2x2(A, inv) : inverse3x3(A, inv);
 
-    double B[3][50];
+    int B[3][50];
     cout << "\nEnter encoded matrix row by row:\n";
     for (int r = 0; r < size; r++)
         for (int c = 0; c < cols; c++)
             cin >> B[r][c];
 
-    double M[3][50] = {0};
+    int M[3][50] = {0};
     for (int r = 0; r < size; r++)
         for (int c = 0; c < cols; c++)
             for (int k = 0; k < size; k++)

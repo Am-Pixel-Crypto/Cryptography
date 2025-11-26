@@ -61,29 +61,28 @@ void saveEncodingMatrix(int A[3][3], int size){
     file << "-----------------------------\n";
     file.close();
 }
-void savedMatrix(){
+int savedMatrix() {
     ifstream file("encoding_matrix.txt");
     string line;
-    int matrixNumber = 0;
+    int matrixCount = 0;
     int size = 0;
+
     cout << "\n===== Saved Matrices =====\n";
     while (getline(file, line)) {
-        if (line.find("Matrix (") == 0){
-            matrixNumber++;
-            cout << "\nMatrix #" << matrixNumber << "  " << line << "\n";
-            if (line.find("2x2") != string::npos)
-                size = 2;
-            else if (line.find("3x3") != string::npos)
-                size = 3;
-            for (int r = 0; r < size; r++){
-                if (getline(file, line)){
-                    cout << "{ " << line << "}\n"; 
-                }
+        if (line.find("Matrix (") == 0) {
+            matrixCount++;
+            cout << "\nMatrix #" << matrixCount << "  " << line << "\n";
+            if (line.find("2x2") != string::npos) size = 2;
+            if (line.find("3x3") != string::npos) size = 3;
+
+            for (int r = 0; r < size; r++) {
+                if (getline(file, line))
+                    cout << "{ " << line << "}\n";
             }
             cout << "-----------------------------\n";
         }
     }
-    file.close();
+    return matrixCount;
 }
 bool loadMatrix(int choice, int A[3][3], int &size) {
     ifstream file("encoding_matrix.txt");
