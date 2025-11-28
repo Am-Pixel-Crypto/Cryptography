@@ -1,12 +1,20 @@
+
+
+//
+//
+// Author:  Mahmoud Mostafa
+
+
 #include <iostream>
 #include "crypto.h"
 using namespace std;
 
 int main() {
-    CryptoSystem crypt;
+
+    bool shouldExit = false;
     int option;
 
-    while (true) {
+    while (!shouldExit) {
         cout << "==== Matrix Encoder/Decoder ====\n"
              << "1. Encode message\n"
              << "2. Decode message\n"
@@ -16,9 +24,34 @@ int main() {
         cin >> option;
         cin.ignore();
 
-        if (option == 1) crypt.encode();
-        else if (option == 2) crypt.decode();
-        else if (option == 3) break;
-        else cout << "Invalid choice!\n";
+        switch(option) {
+            case 1:
+            {
+                // TBD ...
+            } break;
+
+            case 2:
+            {
+                // TBD ...
+            } break;
+
+            case 3:
+            {
+                // TBD ...
+            } break;
+
+            case 4:
+            {
+                // exit the mainloop
+                shouldExit = true;
+            } break;
+
+            default:
+            {
+                cout << "Invalid choice!\n";
+            }
+        }
     }
+
+    return 0;
 }

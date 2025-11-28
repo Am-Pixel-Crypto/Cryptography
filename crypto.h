@@ -1,24 +1,38 @@
-#ifndef CRYPTO_H
-#define CRYPTO_H
 
-#include <iostream>
-#include <string>
-#include <fstream>
+
+//
+//
+// Author:  Haytham Ashraf
+
+#ifndef _CRYPTO_H_
+#define _CRYPTO_H_
+
 #include "LA.h"
-#include "io.h"
 
-using namespace std;
+namespace Crypto {
 
-class CryptoSystem {
-private:
-    int A[3][3];
-    int size;
+    /*
+        Encode a message using matrix A.
 
-public:
-    CryptoSystem();
-    void createOrLoadMatrix();
-    void encode();
-    void decode();
+        Parameters:
+            A: The encoding matrix.
+            M: The message to be encoded.
+
+        Return Value is the encoded matrix.
+    */
+    Matrix Encode(Matrix& A, Matrix& M);
+
+    /*
+        Decode a message using matrix A.
+
+        Parameters:
+            A: The encoding matrix.
+            M: The message to be decoded.
+
+        Return Value is the decoded matrix.
+    */
+    Matrix Decode(Matrix& A, Matrix& M);
 };
 
-#endif
+
+#endif // _CRYPTO_H_

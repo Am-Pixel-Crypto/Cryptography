@@ -1,14 +1,66 @@
-#include "crypto.h"
-#include "LA.h"
-#include "io.h"
+
+//
+//
+// Author:  Haytham Ashraf
+
+
 #include <iostream>
+// #include <string>
+#include "crypto.h"
 
 using namespace std;
 
+Matrix Crypto::Encode(Matrix& A, Matrix& M) {
+
+    Matrix fake(1);
+
+    // checking
+    if(!A.CanMulWith(M)) {
+
+        #ifdef _DEBUG
+            cout << "Encode: Operation not permitted, different sizes\n";
+        #endif
+
+        return fake;
+    }
+
+    return A * M;
+}
+
+Matrix Crypto::Decode(Matrix& A, Matrix& M) {
+
+    Matrix fake(1);
+
+    // checking
+    if(!A.CanMulWith(M)) {
+
+        #ifdef _DEBUG
+            cout << "Encode: Operation not permitted, different sizes\n";
+        #endif
+
+        return fake;
+    }
+
+    if(!A.isInvertible()) {
+
+        #ifdef _DEBUG
+            cout << "Decode: Operation not permitted, Encoding matrix has no invers\n";
+        #endif
+
+        return fake;
+    }
+
+    return A.Inverse() * M;
+}
+
+/*
 CryptoSystem::CryptoSystem() {
     size = 0;
 }
-void CryptoSystem::createOrLoadMatrix() {
+*/
+
+/*
+void createOrLoadMatrix() {
     while (true) {
         int option;
         cout << "\n1. Create a matrix\n2. Use old matrix\nEnter an option: ";
@@ -66,7 +118,8 @@ void CryptoSystem::createOrLoadMatrix() {
         }
     }
 }
-void CryptoSystem::encode() {
+
+void encode() {
     createOrLoadMatrix();
 
     string msg;
@@ -98,7 +151,7 @@ void CryptoSystem::encode() {
     printMatrix(B, size, cols, "Encoded Matrix (B)");
 }
 
-void CryptoSystem::decode() {
+void decode() {
     createOrLoadMatrix();
     int cols;
     cout << "Enter number of columns: ";
@@ -122,3 +175,4 @@ void CryptoSystem::decode() {
     printMatrix(M, size, cols, "Decoded Matrix (M)");
     msgOut(M, size, cols);
 }
+*/
