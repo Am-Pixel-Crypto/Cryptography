@@ -1,4 +1,3 @@
-
 ##
 ##
 ### Author: Haytham Ashraf
@@ -15,8 +14,12 @@ SET(SOURCES
     io.cpp
     crypto.cpp)
 
+ADD_LIBRARY(core OBJECT)
+TARGET_SOURCES(core PRIVATE ${SOURCES})
+
 ADD_EXECUTABLE(crypto)
-TARGET_SOURCES(crypto PRIVATE main.cpp ${SOURCES})
+TARGET_SOURCES(crypto PRIVATE main.cpp)
+TARGET_LINK_LIBRARIES(crypto PRIVATE core)
 
 IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
     # message(STATUS "Debug build")
@@ -24,25 +27,23 @@ IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
 ENDIF()
 
 IF(WITH_GUI)
-
     FIND_PACKAGE(wxWidgets QUIET)
 
     IF(NOT wxWidgets_FOUND)
-
         MESSAGE(WARNING "wxWidgets could be found\nIgnoring GUI Application")
     ELSE()
-
         MESSAGE(STATUS "Generating GUI Application")
         ADD_EXECUTABLE(crypto-gui)
         TARGET_SOURCES(crypto-gui PRIVATE main-gui.cpp ${SOURCES})
+
         TARGET_LINK_LIBRARIES(crypto-gui PRIVATE ${wxWidgets_LIBRARIES})
         TARGET_INCLUDE_DIRECTORIES(crypto-gui PRIVATE ${wxWidgets_INCLUDE_DIRS})
         TARGET_COMPILE_DEFINITIONS(crypto-gui PRIVATE "${wxWidgets_DEFINITIONS}")
+        TARGET_LINK_LIBRARIES(crypto PRIVATE core)
 
         IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
             # building as debug
             TARGET_COMPILE_DEFINITIONS(crypto-gui PUBLIC "_DEBUG")
         ENDIF()
-
     ENDIF()
 ENDIF()
