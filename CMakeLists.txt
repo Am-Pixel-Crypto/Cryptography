@@ -39,7 +39,7 @@ IF(WITH_GUI)
         TARGET_LINK_LIBRARIES(crypto-gui PRIVATE ${wxWidgets_LIBRARIES})
         TARGET_INCLUDE_DIRECTORIES(crypto-gui PRIVATE ${wxWidgets_INCLUDE_DIRS})
         TARGET_COMPILE_DEFINITIONS(crypto-gui PRIVATE "${wxWidgets_DEFINITIONS}")
-        TARGET_LINK_LIBRARIES(crypto PRIVATE core)
+        TARGET_LINK_LIBRARIES(crypto-gui PRIVATE core)
 
         IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
             # building as debug
